@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 50% 1fr;
+        }
+        
+        form {
+            grid-column-start: 2;
+            text-align: center;
+        }
+        input, button {
+            height: 2em;
+            width: 50%;
+            margin: auto;
+            margin-top: 10px;
+            display: block;
+            box-sizing: border-box;
+            border-radius: 0;
+            border: 1px solid black;
+            text-align: center;
+        }
+        button {
+            cursor: pointer;
+            background-color: lightskyblue;
+        }
+    </style>
+</head>
+<body>
+    <form action="success.html" id="my-form">
+        <input type="email" placeholder="email">
+        <input type="password" placeholder="password">
+        <button type="submit">submit</button>
+    </form >
+    <script>
+        //yes, I realize that password handling should NOT be done on the frontend and that this password is exposed. That's the point of this interface, just to test that you're using a tool like hydra correctly.
+        function processForm(e) {
+        if (e.preventDefault) e.preventDefault();
+        if(document.getElementById("my-form").firstElementChild.value == "admin@busybeeindustries.com" && document.getElementById("my-form").children[1].value == "honeyharvester") {
+            window.location = "success.html"
+        }
+        //return false to prevent the default form behavior
+        return false;
+        }
+
+        var form = document.getElementById('my-form');
+        if (form.attachEvent) {
+            form.attachEvent("submit", processForm);
+        } else {
+            form.addEventListener("submit", processForm);
+        }
+    </script>
+</body>
+</html>
